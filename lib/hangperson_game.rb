@@ -1,17 +1,93 @@
 class HangpersonGame
 
-  # add the necessary class methods, attributes, etc. here
-  # to make the tests in spec/hangperson_game_spec.rb pass.
 
-  # Get a word from remote "random word" service
-
-  # def initialize()
-  # end
-  
   def initialize(word)
     @word = word
+# a for the wrong_guesses and c for the guesses
+    @a = []
+    @c = []  
+    @word_with=[]
+    @charNum = 0
   end
+   attr_accessor :word ,:guesses , :wrong_guesses , :win , :lose , :play
+   
+    def guess(char)
 
+     if  char == '' || /[A-Za-z]/ !~ char || char == nil
+        raise ArgumentError      
+     end
+        
+        @charNum += char.chars.count
+        #check if the word include the char
+        chrNum = char.chars.count
+        t = 0
+    char.chars.each do |l|
+      if @word.include?(l) 
+        t +=1
+       end
+    end
+
+        if t == char.chars.count
+         b = @c.count char
+         #check if it's already be guessed
+          if b >= 1
+            @a.push(char)
+            @wrong_guesses=@a.last
+            false
+          else
+            @c.push(char)
+            @guesses=@c.last
+          end
+     
+           #check if it's already be guessed
+      elsif ('A'..'Z') === char || @a.include?(char)
+          false
+        else
+          @a.push(char)
+          @wrong_guesses = @a.last
+      end
+
+       
+    end
+
+    
+    def word_with_guesses
+          @word.chars.each do |l|
+            @word_with.push("-")
+          end
+        a= @word.chars
+        b=@c.join.to_s
+      for i in 0..b.size - 1
+        for j in 0..@word.size
+            if b[i] == a[j]
+               
+                @word_with[j] = a[j]
+
+            end
+        end
+      end
+        @word_with.join.to_s
+    end
+        
+    def check_win_or_lose
+        if word_with_guesses == @word
+            :win
+        elsif @charNum> @word.chars.count
+            :lose
+        else
+            :play
+        end
+    end
+
+ 
+
+
+ 
+  
+  
+   
+  
+   
   # You can test it by running $ bundle exec irb -I. -r app.rb
   # And then in the irb: irb(main):001:0> HangpersonGame.get_random_word
   #  => "cooking"   <-- some random word
@@ -23,5 +99,5 @@ class HangpersonGame
       return http.post(uri, "").body
     }
   end
-
 end
+
