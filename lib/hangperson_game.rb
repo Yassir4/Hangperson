@@ -3,31 +3,30 @@ class HangpersonGame
 
   def initialize(word)
     @word = word
-# a for the wrong_guesses and c for the guesses
+    # a for the wrong_guesses and c for the guesses
     @a = []
     @c = []  
     @word_with=[]
+    #this var is for counting the nuber of chars made by the user
     @charNum = 0
   end
    attr_accessor :word ,:guesses , :wrong_guesses , :win , :lose , :play
    
-    def guess(char)
-
+  def guess(char)
+    #check if the char is empty or non-char or nil 
      if  char == '' || /[A-Za-z]/ !~ char || char == nil
         raise ArgumentError      
      end
-        
         @charNum += char.chars.count
-        #check if the word include the char
-        chrNum = char.chars.count
         t = 0
-    char.chars.each do |l|
-      if @word.include?(l) 
-        t +=1
+      char.chars.each do |l|
+        #check if the word include the char
+       if @word.include?(l) 
+          t +=1
        end
-    end
+      end
 
-        if t == char.chars.count
+       if t == char.chars.count
          b = @c.count char
          #check if it's already be guessed
           if b >= 1
@@ -40,15 +39,15 @@ class HangpersonGame
           end
      
            #check if it's already be guessed
-      elsif ('A'..'Z') === char || @a.include?(char)
+       elsif ('A'..'Z') === char || @a.include?(char)
           false
         else
           @a.push(char)
           @wrong_guesses = @a.last
-      end
+       end
 
        
-    end
+  end
 
     
     def word_with_guesses
@@ -60,9 +59,7 @@ class HangpersonGame
       for i in 0..b.size - 1
         for j in 0..@word.size
             if b[i] == a[j]
-               
                 @word_with[j] = a[j]
-
             end
         end
       end
@@ -72,7 +69,7 @@ class HangpersonGame
     def check_win_or_lose
         if word_with_guesses == @word
             :win
-        elsif @charNum> @word.chars.count
+        elsif @charNum > @word.chars.count
             :lose
         else
             :play
