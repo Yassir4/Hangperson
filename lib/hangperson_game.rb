@@ -19,8 +19,8 @@ class HangpersonGame
      end
         @charNum += char.chars.count
         t = 0
+         #check if the word include the chars
       char.chars.each do |l|
-        #check if the word include the char
        if @word.include?(l) 
           t +=1
        end
@@ -45,17 +45,15 @@ class HangpersonGame
           @a.push(char)
           @wrong_guesses = @a.last
        end
-
-       
   end
 
-    
     def word_with_guesses
           @word.chars.each do |l|
             @word_with.push("-")
           end
-        a= @word.chars
-        b=@c.join.to_s
+          a= @word.chars
+          b=@c.join.to_s
+      #check if the guesses chars match the word chars
       for i in 0..b.size - 1
         for j in 0..@word.size
             if b[i] == a[j]
@@ -63,6 +61,7 @@ class HangpersonGame
             end
         end
       end
+      
         @word_with.join.to_s
     end
         

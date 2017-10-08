@@ -29,8 +29,9 @@ class HangpersonApp < Sinatra::Base
     # NOTE: don't change next line - it's needed by autograder!
     word = params[:word] || HangpersonGame.get_random_word
     # NOTE: don't change previous line - it's needed by autograder!
-
+    
     @game = HangpersonGame.new(word)
+    flash[:notice] = @game
     redirect '/show'
   end
   
