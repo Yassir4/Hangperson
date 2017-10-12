@@ -13,6 +13,7 @@ class HangpersonGame
    attr_accessor :word ,:guesses , :wrong_guesses , :win , :lose , :play
    
   def guess(char)
+      char = char.gsub(/[\s,]/ ,"")
     #check if the char is empty or non-char or nil 
      if  char == '' || /[A-Za-z]/ !~ char || char == nil
         raise ArgumentError      
@@ -23,6 +24,7 @@ class HangpersonGame
       char.chars.each do |l|
        if @word.include?(l) 
           t +=1
+          @c.push(l)
        end
       end
 

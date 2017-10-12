@@ -29,9 +29,7 @@ class HangpersonApp < Sinatra::Base
     # NOTE: don't change next line - it's needed by autograder!
     word = params[:word] || HangpersonGame.get_random_word
     # NOTE: don't change previous line - it's needed by autograder!
-    
     @game = HangpersonGame.new(word)
-    flash[:notice] = @game
     redirect '/show'
   end
   
@@ -40,6 +38,13 @@ class HangpersonApp < Sinatra::Base
   # If a guess is invalid, set flash[:message] to "Invalid guess."
   post '/guess' do
     letter = params[:guess].to_s[0]
+    letter = letter.gsub(/[\s,]/ ,"")
+    @game.guess(letter)
+    flash[:wrong_guesses] = @game.wrong_guesses
+    flash[:word_with_guesses] = @game.word_with_guesses
+   session[:word_with_guesses] = @game.word_with_guesses
+    @w_g = flash[:wrong_guesses]
+    @w = flash[:word_with_guesses]
     ### YOUR CODE HERE ###
     redirect '/show'
   end
