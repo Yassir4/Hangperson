@@ -27,19 +27,19 @@ describe HangpersonGame do
       end
       it 'changes correct guess list' do
         expect(@game.guesses).to eq('a')
-        expect(@game.wrong_guesses).to eq(nil)
+        expect(@game.wrong_guesses).to eq('')
       end
       it 'returns true' do
         expect(@valid).not_to be false
       end
     end
-    context 'incorrectly' do
+    context 'incorrectly' do 
       before :each do
         @game = HangpersonGame.new('garply')
         @valid = @game.guess('z')
       end
       it 'changes wrong guess list' do
-        expect(@game.guesses).to eq(nil)
+        expect(@game.guesses).to eq('')
         expect(@game.wrong_guesses).to eq('z')
       end
       it 'returns true'do

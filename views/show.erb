@@ -1,20 +1,20 @@
 <h2>Guess a letter</h2>
 
-<% if flash[:message] %>
+<% if flash[:message]%>
   <p>
-    <span class="error"><%= flash[:message] %></span>
+    <span class="error"><%= flash[:message]%></span>
   </p>
 <% end %>
 
 <p>
   Wrong Guesses:
-  <span class="guesses"><%= @w_g %></span>
+  <span class="guesses"><%=flash[:wrong_guesses] %></span>
   
 </p>
 
 <p>
   Word so far:
-  <span class="word"><%= @w %></span>
+  <span class="word"><%= flash[:word_with_guesses] %></span>
 </p>
 
 <% if session[:game] %>
