@@ -28,10 +28,14 @@ class HangpersonApp < Sinatra::Base
   end
   
   post '/create' do
+    # initialize the flash 
+    flash[:message] = ''
+    flash[:wrong_guesses] = ''
+    flash[:word_with_guesses] = ''
     # NOTE: don't change next line - it's needed by autograder!
     word = params[:word] || HangpersonGame.get_random_word
     # NOTE: don't change previous line - it's needed by autograder!
-    @game = HangpersonGame.new('yassir')
+    @game = HangpersonGame.new(word)
     session[:game] =@game
     redirect '/show'
   end
@@ -59,7 +63,7 @@ class HangpersonApp < Sinatra::Base
         redirect '/show'
      elsif @game.check_win_or_lose == :lose
         redirect 'lose'
-      end
+     end
   end
   
   get '/show' do
@@ -68,6 +72,7 @@ class HangpersonApp < Sinatra::Base
   end
   
   get '/win' do
+    
     erb :win
   end
   
